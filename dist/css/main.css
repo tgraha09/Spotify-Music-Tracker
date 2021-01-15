@@ -1,0 +1,149 @@
+:root{
+    --background: #3AAA89;
+    --cw: 45vw;
+    --ch: 30vw;
+    --lw: 50px;
+    --h2C: #3B3561;
+    --rubik: 'rubik';
+}
+
+
+
+#desc{
+    min-width: 300px;
+    max-width: 600px;
+    display: block;
+    margin: 0 auto;
+    padding-bottom: 1vw;
+}
+
+
+
+a:visited{
+    color: lightskyblue;
+}
+
+#displaychart{
+    width: 75%;
+    display: flex;
+    margin: 0 auto;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    
+    scrollbar-width: none;
+}
+#chart{
+    min-width: 500px !important;
+    color: white;
+    
+}
+#legend{
+    height: 375px;
+    width: min-content;
+    
+    overflow-y: scroll;
+}
+#legend::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+.leg-item {
+    
+    display: none;
+    color: white;
+    overflow: hidden;
+    padding-bottom: 2vw;
+    min-width: 500px;
+    
+}
+
+
+
+
+
+h4{
+    text-align: center;
+}
+
+ 
+
+#title{
+    
+    text-align: center;
+    min-width: 300px !important;
+    max-width: 400px !important;
+    max-height: 100px !important;
+    
+    
+}
+
+h1, h2, h3, h4{
+    font-family: var(--rubik);
+    color: var(--h2C);
+    
+   
+}
+
+
+
+
+
+#song, #count {
+    min-width: 200px;
+    text-align: left;
+    padding-left: 10px;
+
+    
+}
+
+#song{
+    text-align: left;
+    padding-right: 3vw;
+    width: 15vw;
+}
+
+
+
+#playbutton{
+    display: block;
+    margin: 0 auto;
+    
+}
+
+body{
+    background-color:  #3AAA89;
+}
+
+#login-button{
+  background-color: var(--h2C);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  
+}
+
+
+#login{
+    
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    width: 25vw;
+    padding-bottom:1vw;
+    padding-top: 1vw;
+}
+
+
+
+
+
+@font-face{
+    font-family: 'rubik';
+    src: url('../fonts/rubik/Rubik-Regular.ttf');
+}

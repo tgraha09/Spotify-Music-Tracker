@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="css/doc.css">
+    <title>Document</title>
+</head>
+<body>
+    <div id="nav">
+        <h2><a href="https://people.rit.edu/tkg3369/235/index.html">Home</a></h2>
+        <h2><a href="https://people.rit.edu/tkg3369/235/project2/index.html">Project 2</a></h2>
+    </div>
+    
+    <section id="approach">
+        <h2 id="title">Documentation</h2>    
+        <h3>Design Process</h3>
+        <ul id="process">
+            <li>
+                <p>
+                    For project 2, I decided to create a web applciation that gathers data from my spotify account. 
+                    Specifically from my most recently played songs list and displays them in the form of a chart using Chart.js
+                </p>
+            </li>
+            <li>
+                <p>
+                    The process used to design this web application was to create backend scripts to communicate
+                    with Spotify's Developer API service. Spotify uses Bearer Oauth token's to validate any developer's 
+                    web application. 
+                </p>
+            </li>
+            <li>
+                <ol>
+                    <li>Authorize Web App</li>
+                    <li>Create a script for handling Authorization (key.js)</li>
+                    <li>Another script for data manipulation (music.js)</li>
+                    <li>Attatch inline script for Spotify API (spotify-web-api-js.js)</li>
+                    <li>Attatch another inline script for Chartjs (chart.js)</li>
+                    <li>In key.js specify the redirectc URI for the current project</li>
+                    <li>Now on the web in the Spotify Developer's page, register the application and whitelist the redirect URI</li>
+                    <li>Once page can be redirected, music.js should initialize and create variables necessary to display data.</li>
+                    <li>With the spotify api script attatched, the getMyRecentlyPlayedTracks function can be used.<br><br>
+                    (Note: This function uses Promises to control data that has not been fully defined yet.)</li>
+                    <li>
+                        Once in the getMyRecentlyPlayedTracks, store the data into a temp variable and loop through all data items. 
+                    </li>
+                    <li>
+                        For each song, traverse the data that is attatched to the data object. Getting only what is necessary.  
+                    </li>
+                    <li>
+                        After getting the necessary data, the song data is then stored in an array and is further used to construct <br>
+                        the display and chart data.   
+                    </li>
+                    <li>
+                        The track data is then compared to the textfile database holding all songs that were previously listened to. 
+                        <br><br> (Note: Population of data could not be done in browser due to the CORS policy, population done on localized server)
+                    </li>
+                    <li>
+                        Track names are compared with the database in the hopes to find the number of times a song is listened to. 
+                        <br> Track names and count are stored in local storage and accessed to help construct the chart data.  
+                    </li>
+                    <li>
+                        Once the data from storage is accessed, the chart can be drawn along with the button slider, playbutton widget, <br>
+                        expandable legend, and toggable mixed graphs. 
+                       
+                    </li>
+                    
+                </ol>
+            </li>
+        </ul>
+        <h3>Challenges</h3>
+        <ol id="process">
+            <li>
+                <p>Due to promise statement in spotify functon, localstorage can only load data after a page refresh. 
+                    Page refresh detection implemented, performance can vary.</p>
+            </li>
+            <li>
+                <p>Dynamically creating Playbutton widgets in an iframe with spotify's music links introduces authorization errors.
+                    Violating the service workers registration from user denied permission. <br> In addition to dom elements being refernced from a different server that the web app cannot account for. 
+                </p>
+            </li>
+            
+        </ol>
+        <h3>Personal Grade</h3>
+        <ul id="process">
+            <li>
+                <p>
+                    When looking at this project in its totallity, I think it aims to achieve more than what was expected with regards to
+                    the kind of Authorization needed, the type of data handled, and the amount of scripting done to dynamically create everything from improted data.
+                </p>
+            </li>
+            <li>
+                <p>
+                    However, due to the nature of the API used, more time would've been needed to fully assess the depts of the cyber security surrounding the platform.
+                    <br> While, different implementations were of course used throughout the development of the project, In order to achieve optimal performance, <br>
+                    <br>2 functionalities would have to be removed. Or alternatively, if the submission of a node based application were allowed, the web policy's that cause the errors could be resolved. 
+                </p>
+            </li>
+            <li>
+                <p>
+                    With that being said, I have exhausted as many resources (online/in person) to gain a better understanding of Javascript 
+                    and web development to even attempt an ambitious project such as this. I think a fair grade would be a B, that taking into account any lack of responsiveness or seperate errors. 
+                </p>
+            </li>
+            
+        </ul>
+        
+        <h3>Resources</h3>
+        <ul id="resources">
+            <li>
+                <h4>
+                    <a href="https://developer.spotify.com/documentation/web-api/">
+                    Spotify API Documentation
+                    </a>
+                </h4>
+            </li>
+            <li>
+                <h4>
+                    <a href="https://www.chartjs.org/docs/latest/">
+                    ChartJS Documentation
+                    </a>
+                </h4>
+            </li>
+            <li>
+                <h4>
+                    <a href="https://github.com/jmperez/spotify-web-api-js">
+                    Spotify API JM Perez Github
+                    </a>
+                </h4>
+            </li>
+            <li>
+                <h4>
+                    <a href="https://api.jquery.com/">
+                    Jquery Documentation
+                    </a>
+                </h4>
+            </li>
+            
+        </ul>
+        <h3>Tutorials</h3>
+        <ul id="tutorials">
+            <li>
+                <h4><a href="https://www.youtube.com/watch?v=NtRmIp4eMjs">
+                CSS Variables - Fireship</a></h4>
+            </li>
+            
+            
+        </ul>
+        
+        <h3>Useful</h3>
+        <ul id="links">
+            <li>
+                <h4><a href="https://www.w3schools.com/">W3 Schools</a></h4>
+            </li>
+            <li>
+                <h4><a href="https://developer.mozilla.org/en-US/">MDN Web Docs</a></h4>
+            </li>
+            <li>
+                <h4><a href="https://www.geeksforgeeks.org/">Geek For Geeks</a></h4>
+            </li>
+            <li>
+                <h4><a href="https://www.youtube.com/">Youtube</a></h4>
+            </li>
+            <li>
+                <h4><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">Css-Tricks: Flex-box</a></h4>
+            </li>
+        </ul>
+    </section>
+</body>
+</html>

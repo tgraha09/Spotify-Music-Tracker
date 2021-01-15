@@ -1,0 +1,111 @@
+
+:root{
+    --background: #3AAA89;
+    --cw: 45vw;
+    --ch: 30vw;
+    --lw: 50px;
+    --h2C: #3B3561;
+    --rubik: 'rubik';
+}
+
+body{
+    min-height: 100vh;
+    background: var(--background);
+}
+
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+a:visited{
+    color: lightskyblue;
+}
+
+
+h2, h3{
+    color: white;
+}
+
+a{
+    text-decoration: none;
+}
+
+ol li{
+    color: white;
+    padding-top: 1vw;
+}
+
+#img li img{
+    width: 380px;
+    padding-left: 1.25vw;
+}
+
+#resources h4{
+    color: white;
+    width: 30vw;
+}
+
+#approach h2{
+    padding-top: 0.5vw;
+    padding-bottom: 1vw;
+}
+
+#process p{
+    color: white;
+    width: 30vw;
+}
+
+#nav a:active{
+    color: coral;
+}
+
+#approach{
+    display: flex;
+    flex-flow: column;
+    margin-left: calc(50% - 15vw);
+}
+
+#approach ul{
+   list-style: none; 
+}
+
+a{
+    text-decoration: none;
+}
+
+a:link{
+    color: coral;
+}
+
+#tutorial h4 a:link{
+    
+    color: coral;
+}
+
+#approach #links li h3 a{
+    color: coral;
+}
+
+
+#approach #links li{
+    float: left;
+    padding-left: 1vw;
+}
+#nav{
+    display: flex;
+    justify-content: center;
+    
+}
+
+#nav h2{
+   
+    padding: 2vw;
+}
+
+#nav a{
+    text-decoration: none;
+}
+
+#nav a:link{
+    color: coral;
+}

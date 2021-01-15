@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spotify Music Tracker</title>
+    <link rel="stylesheet" type="text/css" href="dist/css/main.css">
+    <link rel="stylesheet" type="text/css" href="dist/css/accordian.css">
+  </head>
+
+  <body>
+   
+    <h1 id="title">Spotify Music Tracker</h1>
+    
+      
+      <div id="login">
+        
+        
+        <h3 id="login-dir">Click the Button to Authenticate project with Spotify</h3>
+        <button id="login-button">Authenticate</button>
+      </div>  
+      
+
+      <h4 id="desc">
+        This is my Project 2 assignment for IGME 235. This app uses Spotify's API to gather my most recently played songs 
+        to see how many times I've played them in one month (April 2020).
+      </h4>  
+    
+      <div id="legend"></div>
+      
+    
+    <script src="dist/js/tkgtemplates.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/2.0.0-alpha.1/handlebars.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+ 
+    <script src="dist/js/spotifyAPI.js"></script>
+    <script src="dist/js/key.js" id="key"></script>
+    <script type="module" src="dist/js/music.js"></script>
+  </body>
+</html>
