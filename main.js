@@ -21,10 +21,10 @@ let isDev = process.env.APP_DEV ? (process.env.APP_DEV.trim() == "true") : false
 
 if (isDev) {
     //console.log(__dirname + '/node_modules')
-    require('electron-reload')(__dirname, {
+   /* require('electron-reload')(__dirname, {
         electron: path.join(__dirname, 'node_modules', '.bin', 'electron'), 
         ignored: /dist|[\/\\]\./
-    });
+    });*/
 }
 
 

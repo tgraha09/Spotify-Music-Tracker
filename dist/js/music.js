@@ -1,7 +1,10 @@
-
+import * as utils from './utils.js'
 var fs = require('fs');
 var path = require('path');
 const { dirname } = require('path');
+
+
+
 var tracks = [];
 var base = process.env.PWD
 var data = [];
@@ -38,6 +41,7 @@ document.getElementById('login-button').addEventListener('click',function(){
 StartUp();
 
 async function StartUp(){
+    
     if(localStorage.access_token != 'undefined'){
         
         document.getElementById('login-button').style.display = 'none';
@@ -45,64 +49,117 @@ async function StartUp(){
         document.getElementById('desc').style.display = 'none';
     }
     let legend = document.getElementById('legend')
-    //console.log(legend)    
+    let path = base + '/data/trackdata.txt'
     tracks = await getRecentlyPlayed()
-    filecheck = fs.existsSync(base + '/dist/data/trackdata.txt')
+    let data = utils.readTrackFiles(path)
+    console.log(data);
     
-    for(let i = 0; i < tracks.length; i++){
-        let track = tracks[i]
+    utils.each(tracks, (track)=>{
+        utils.each(data, (song)=>{
+            if(song.includes(track.name)){
+                console.log("true");
+            }
+        })
+        //console.log(track.print);
         
-        //console.log(label)
-        let button = addPlayButton(track.url, i)
-        button.style.width = '20rem'
-        //label.style.width = button.width
-        //label.style.height = button.height
-        //console.log(button.outerHTML)
-        let accord = new Accordion(track.name + ' by ' + track.artists, button.outerHTML)
-        
-       // accord.SetButtonWH(parseInt(button.width), parseInt(button.height/2))
-        accord.SetContentWH(parseInt(button.width), parseInt(button.height))
-        accord.SetContentInnerMargin(10)
-        accord.SetButtonClassName('acc-bttn')
-        accord.SetContentClassName('acc-cont')
-        accord.SetTransitions(true, 3)
-        //legend.style.width = button.width + 'px'
-        legend.appendChild(accord)
-       // document.body.appendChild(legend)
+        //utils.writeTrackFiles(path, track.print)
+    })
+    
+    //console.log(tracks);
+    //let items = utils.ReadTrackFiles(base + '/data/trackdata.txt')
+    //console.log(items);
+    //filecheck = fs.existsSync(base + '/dist/data/trackdata.txt')
 
-        ReadTrackFiles(track) //track.name + ' by ' + track.artists
-   
-
-        //console.log(accord.getBoundingClientRect())
-        //accord.setAttribute('width', button.width)
-        //accord.setAttribute('height', button.height) 
-        //accord.SetButtonClassName('acc-bttn')
-       // accord.SetContentClassName('acc-cont')
-       // console.log(accord)
-    }
-    //localStorage.clear()
     
 
 }
 
-function ReadTrackFiles(_song){
-   // console.log(ReadData())
-    //console.log(base + '/dist/data/trackdata.txt')
-    
-   // console.log(filecheck)
-
-    switch(filecheck){
-        case false:
-                fs.writeFile(base + '/dist/data/trackdata.txt', JSON.stringify(_song), function (err) {
-            
-                });
-            break;
-        case true:
-                WriteData(_song)
-            break;
-
+function processTrack(_item){
+    var monthNames = ["January", "February", "March", "April", "May","June","July", "August", "September", "October", "November","December"];
+    //getting name, artists and album etc.
+    let trackItem = _item.track;
+    let url = trackItem.external_urls.spotify;
+    //console.log(trackItem);
+    let time = _item.played_at;
+    let name = trackItem.name;
+    let album = trackItem.album;
+    let img = album.images;
+    //creating a temp song obj
+    var song = new Object();
+    let artists = null;
+    song.name = name;
+    song.url = url;
+    song.time = time
+    //getting all featured artists
+    for(let g = 0; g < trackItem.artists.length; g++){
+        if(artists != null){
+            artists += ", " + trackItem.artists[g].name
+        }
+        if(artists == null){
+            artists = trackItem.artists[g].name;
+        }
+        
     }
+    //constructing song object
+    song.artists = artists
+    song.albumImages = img
+    let tsplit = time.indexOf("T")
+    
+    let song_date = time.slice(0, tsplit);
+    let timeleft = time.slice(tsplit+1, time.length);
+    let zsplit = timeleft.indexOf("Z")
+    timeleft = timeleft.slice(0, zsplit)
+    let d = new Date(song_date + " " + timeleft)
+    song.time = timeleft
+    song.heardOn = song_date
+    //console.log(monthNames[d.getMonth()]);
+    song.date = d;
+    song.day = d.getDate()
+    song.month = monthNames[d.getMonth()]
+    song.dateString = d.toDateString()
+    //console.log(d.toDateString());
+    song.count = 0;
+    song.datePrint =  song.month+" | " + song.day + " | " + song.time + " | "
+    //title to cross reference in data base from text file 
+    song.print = ""+song.name + " by " + song.artists +" | " + song.datePrint;
+     //count would be atleast one if its from recently played
+    
+    //console.log(song.date)
+    //readFile(song);
+    return song;
+}
 
+function getRecentlyPlayed(){ 
+   
+    let songs = []
+
+
+    spotifyApi.getMyRecentlyPlayedTracks(function(err, _data){
+        
+        if (err);
+        else{
+            
+            data = _data.items;
+            //for each data item we have// max is 20
+            for(let item of data){
+                //console.log(item)
+                //pushing tracks to track array
+                songs.push(processTrack(item));
+                
+            }
+          
+        }
+    })
+
+    
+
+    return new Promise((res, rej)=>{
+        setTimeout(()=> res(songs), 2000)
+    }).then((data)=>{
+        //console.log(data)
+        return data
+    })
+   
 }
 
 
@@ -149,11 +206,6 @@ function WriteData(_data){
                 //fs.writeFileSync(base + '/dist/data/trackdata.txt', data + '\n' + JSON.stringify(_data))
             }
 
-            //console.log(parsed.includes(_data))
-            //console.log(JSON.stringify(_data))
-           // console.log(splitted.includes(data.name))
-           
-           //fs.writeFileSync(base + '/dist/data/trackdata.txt', data + '\n' + JSON.stringify(_data))
           
         } catch (err) {
           console.error(err)
@@ -178,75 +230,9 @@ function ContainsObj(obj, arr){
     return cont
 }
 
-function getRecentlyPlayed(){ 
-   
-    let songs = []
 
 
-    spotifyApi.getMyRecentlyPlayedTracks(function(err, _data){
-        
-        if (err);
-        else{
-            
-            data = _data.items;
-            //for each data item we have// max is 20
-            for(let item of data){
-                //console.log(item)
-                //pushing tracks to track array
-                songs.push(processTrack(item));
-                
-            }
-          
-        }
-    })
 
-    
-
-    return new Promise((res, rej)=>{
-        setTimeout(()=> res(songs), 2000)
-    }).then((data)=>{
-        //console.log(data)
-        return data
-    })
-   
-}
-
-function processTrack(_item){
-    //getting name, artists and album etc.
-  let track = _item.track;
-  let url = track.external_urls.spotify;
-  
-  let time = _item.played_at;
-  let name = track.name;
-  let album = track.album;
-  let img = album.images[0];
-  //creating a temp song obj
-  var song = new Object();
-  let artists = null;
-  song.name = name;
-  song.url = url;
-  song.time = time
-  //getting all featured artists
-  for(let g = 0; g < track.artists.length; g++){
-      if(artists != null){
-          artists += ", " + track.artists[g].name
-      }
-      if(artists == null){
-          artists = track.artists[g].name;
-      }
-      
-  }
-  //constructing song object
-  song.artists = artists
-  let song_date = time.slice(0, time.indexOf("T"));
-  song.date = song_date;
-  //title to cross reference in data base from text file 
-  song.title = "["+song.name + " by " + song.artists + "_on " + song.date+"]";
-  song.count = 1; //count would be atleast one if its from recently played
-  //console.log(song.date)
-  readFile(song);
-  return song;
-}
 
 async function getRecentlyPlayed_old(){
     spotifyApi.getMyRecentlyPlayedTracks(function(err, _data) {
